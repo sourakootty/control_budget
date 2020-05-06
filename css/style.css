@@ -1,0 +1,101 @@
+.navbar-dark .navbar-brand {
+    font-weight: bold;
+}
+
+.navbar-dark .navbar-nav .nav-link{
+	font-weight: bold;
+	color: white;
+	margin-left: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover{
+	color: white;
+	background-color: #4d545a;
+}
+
+@media (max-width: 575px){
+	.indextext{
+		font-size: 30px;
+	}
+	.index{
+		padding: 50px 0;
+	}
+	
+}
+@media (min-width: 576px) {
+  	.indextext{
+		font-size: 30px;
+	}
+	.index{
+		padding: 50px 0;
+	}
+}
+
+@media (min-width: 768px) {
+	.indextext{
+		font-size: 35px;
+	}
+	.index{
+		padding: 70px 0;
+	}
+  	
+}
+@media (min-width: 992px){
+	.indextext{
+		font-size: 40px;
+	}
+	.index{
+		padding: 80px 0;
+	}	
+	
+}
+@media (min-width: 1200px) { 
+	.indextext{
+		font-size: 45px;
+	}
+	.index{
+		padding: 100px 0;
+	}	
+	
+}
+
+body{
+		background: url(../background/budget.jpg) no-repeat center center fixed; 
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		background-size: cover;
+		background-color: white;	
+	}
+
+.index{
+	background-color: #00000099;
+    color: white;
+    text-align: center;
+    margin: 240px 0;
+}
+
+.dropdown-menu{
+	background-color: #343a40;
+	border: none;
+}
+
+.dropdown-item{
+	color: white;
+	font-weight: bold;
+	padding-top: 5px;
+	padding-bottom: 5px;  
+}
+
+footer{
+	background-color: #343a40;
+	color: white;
+	font-weight: bold;
+	bottom: 0;
+	position: fixed;
+	width: 100%;
+	text-align: center;
+	padding: 10px 0;
+}
