@@ -40,7 +40,10 @@
 	.index{
 		padding: 70px 0;
 	}
-  	
+	.nav-menu{
+		display: none;
+
+	}  	
 }
 @media (min-width: 992px){
 	.indextext{
@@ -99,3 +102,34 @@ footer{
 	text-align: center;
 	padding: 10px 0;
 }
+.nav-menu{
+	height: 100%;
+	position: fixed;
+	right: 0;
+	top: 56px;
+	background-color: #343a40;
+	z-index: 1;
+	transition: 0.4s;
+	box-shadow: -5px -8px 5px 0px rgba(43, 41, 41, 0.64);
+
+}
+.nav-menu .nav-link{
+	color: white;
+	font-weight: bold;
+	display: block;
+	overflow: hidden;
+  	white-space: nowrap;
+  	text-overflow: ellipsis;
+  	border-bottom: 1px solid rgba(255,255,255,.1);
+}
+.nav-menu .nav-link:hover{
+	background-color: #4d545a;
+}
+.menu-icon{
+	border-bottom: 1px solid rgba(255,255,255,.1);
+	text-align: center;
+	padding-bottom: 20px;
+}
+
+
+

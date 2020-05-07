@@ -5,7 +5,7 @@
 <html style="height:100%">
 <head>
 	<title>403 Forbidden</title>
-	<script defer src="fontawesome/all.min.js"></script>
+	<link rel="stylesheet" href="fontawesome/css/all.min.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" >
 	<?php
 	setcookie("test","test",time()+3600,"/");
