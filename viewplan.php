@@ -266,7 +266,7 @@
 					?>
 					<div class="col-10 offset-1 col-md-6 offset-md-0 col-lg-6 offset-lg-0 col-xl-4 offset-xl-0" style="margin-bottom: 15px;margin-top: 15px;">
 						<div class="card bg-light border-info font-weight-bold shadow">
-		  					<div class="card-header bg-info text-center text-white">
+		  					<div class="card-header bg-info text-center text-white" style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
 		  						<?php echo $expensetitle[$i]; ?>
 		  					</div>
 		  					<div class="card-body">  						
