@@ -37,7 +37,7 @@
 	<div class="container">
 		<div class="index">
 			<div class="indextext">
-				We help you to control your budget
+				We help you to plan your budget
 			</div><br>
 			<div>
 				<a href="login.php" class="btn btn-info">Start Today <i class="fas fa-arrow-circle-right"></i></a>
