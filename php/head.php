@@ -2,7 +2,7 @@
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css?<?php echo $ver; ?>">
 	<link rel="shortcut icon" type="image/jpg" href="icon/icon.png"/>
-	<script defer src="fontawesome/all.min.js"></script>
+	<link rel="stylesheet" href="fontawesome/css/all.min.css">
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
 	<script type="text/javascript">
