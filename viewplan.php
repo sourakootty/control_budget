@@ -424,18 +424,12 @@
 			var from="<?php echo $from; ?>";
 			var to="<?php echo $to ?>";
 			var error=0;
-			var paidbypersonsid=new Array(
-				<?php for ($i=0; $i < $personCount; $i++){ 
-					if($i==$personCount-1){ 
-				?>
-				"<?php echo $personId[$i]; ?>"
-				<?php
-					}
-					else{
-				?>
-				"<?php echo $personId[$i]; ?>",
-				<?php } } ?>
-				);
+			var paidbypersonsid=new Array();
+
+				<?php for ($i=0; $i < $personCount; $i++){ ?>
+				paidbypersonsid.push("<?php echo $personId[$i] ?>");
+				<?php } ?>
+				
 
 			//loading starts.......		
 			button.innerHTML='<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Adding...';
