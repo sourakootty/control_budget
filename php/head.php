@@ -1,4 +1,4 @@
-<?php $ver="07052020"; ?>
+<?php $ver="08052020"; ?>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css?<?php echo $ver; ?>">
 	<link rel="shortcut icon" type="image/jpg" href="icon/icon.png"/>
