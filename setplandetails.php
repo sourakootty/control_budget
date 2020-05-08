@@ -87,10 +87,11 @@
 				
 
 				//Inserting Persons of the plan
+				unset($sql);
 				for ($i=0; $i < $peoples; $i++) { 
-					$sql = "INSERT INTO persons(`plan_id`,`person_id`,`person_name`) VALUES ('$planid','$personId[$i]','$person[$i]')";
-					$conn->query($sql);			
+					$sql .= "INSERT INTO persons(`plan_id`,`person_id`,`person_name`) VALUES ('$planid','$personId[$i]','$person[$i]');";			
 				}
+				$conn->multi_query($sql);
 					
 				//connection to db close
 				$conn->close();
@@ -173,7 +174,7 @@
 							?>
 								<div class="form-group">
 									<label>Person Name</label>
-									<input type="text" class="form-control <?php if(isset($personError[0])) echo $personError[0]; ?>" name="person1" placeholder="Name" pattern="^[A-Za-z]+(\s[A-Za-z]+)*$" onkeyup="checkname(this)" required>
+									<input type="text" class="form-control <?php if(isset($personError[0])) echo $personError[0]; ?>" id="person1" name="person1" placeholder="Name" pattern="^[A-Za-z]+(\s[A-Za-z]+)*$" onkeyup="checkname(this)" required>
 									<span class="invalid-feedback">
         								Enter Valid Name
       								</span>
