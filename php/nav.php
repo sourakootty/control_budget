@@ -11,7 +11,7 @@
 <nav class="navbar navbar-expand-md fixed-top navbar-dark bg-dark">
 		<div class="container">
 		  <a class="navbar-brand" href="index.php" style="font-weight: bold;"><i class="fas fa-rupee-sign"></i> Control Budget</a>
-		  <button class="navbar-toggler" type="button" onclick="myMenu()">
+		  <button class="navbar-toggler" type="button" onclick="myMenu()" onblur='document.getElementById("nav-menu").style.width="0px"'>
 		    <span class="navbar-toggler-icon"></span>
 		  </button>
 		  <div class="collapse navbar-collapse">
