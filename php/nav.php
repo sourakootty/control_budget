@@ -29,8 +29,9 @@
 				        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i> <?php echo $_SESSION["email"] ?>
 				        </a>
 				        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-				          <a class="dropdown-item" href="changepass.php"><i class="fas fa-user-cog"></i> Change Password</a>
-				          <a class="dropdown-item" href="php/logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
+				        	<a class="dropdown-item" href="home.php?p=1"><i class="fas fa-history"></i> Past Plans</a>
+				        	<a class="dropdown-item" href="changepass.php"><i class="fas fa-user-cog"></i> Change Password</a>
+				        	<a class="dropdown-item" href="php/logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
 				        </div>
 				     </li>
 				    <?php } ?>
@@ -57,8 +58,9 @@
 				        	<div style="text-align: center;color: white;font-size: 30px;"><i class="fas fa-user"></i></div>
 				        	<?php echo $_SESSION["email"] ?>
 				        </a>
-				          <a class="nav-link" href="changepass.php"><i class="fas fa-user-cog"></i> Change Password</a>
-				          <a class="nav-link" href="php/logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
+				        	<a class="nav-link" href="home.php?p=1"><i class="fas fa-history"></i> Past Plans</a>
+				          	<a class="nav-link" href="changepass.php"><i class="fas fa-user-cog"></i> Change Password</a>
+				         	<a class="nav-link" href="php/logout.php"><i class="fas fa-sign-out-alt"></i> Logout</a>
 				     </li>
 				    <?php } ?>
 		    	

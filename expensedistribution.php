@@ -28,7 +28,7 @@
 		}
 
 		//if plan found
-		if(isset($plan)){
+		if(isset($plan) && $row["peoples"]>1){
 			$plantitle=$row["title"];
 			$initial_budget=$row["initial_budget"];
 			$peoples=$row["peoples"];
