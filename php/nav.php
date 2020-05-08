@@ -42,7 +42,7 @@
 		    	
 		    		<?php if (!isset($_SESSION["email"])) { ?>
 
-		      			<a class="nav-link menu-icon" href="home.php">
+		      			<a class="nav-link menu-icon" href="index.php">
 				        	<div style="text-align: center;color: white;font-size: 30px;"><i class="fas fa-home"></i></div>
 				        	HOME
 				        </a>	      			

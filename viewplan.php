@@ -250,9 +250,11 @@
 							<label>Date</label>
 							<label style="float: right;font-weight: normal;"><?php echo date("d M",strtotime($from));echo date(" - d M Y",strtotime($to)); ?></label>
 						</div>	
+						<?php if($peoples!=1){ ?>
 						<div class="form-group" style="margin: auto;width: fit-content;">
 							<a href="expensedistribution.php?plan=<?php echo md5($plan); ?>" class="btn btn-info">Expense Distribution</a>	
-						</div>				
+						</div>
+						<?php }?>				
   					</div>  					
 				</div>
 			</div>
