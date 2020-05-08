@@ -41,7 +41,6 @@
 			$title=$_POST["title"];
 			$date=$_POST["date"];
 			$spent=$_POST["spent"];
-			$paidbyid=$_POST["paidby"];
 
 			//Obtaining data from session
 			$email=$_SESSION["email"];
@@ -63,16 +62,25 @@
 				$spentError="is-invalid";
 	  			$error=1;
 			}
-			for ($i=0; $i < $_SESSION["personCount"]; $i++) { 
-				if($paidbyid==$_SESSION["personid"][$i]){
-					$flag=true;
-					break;
+
+			//checking person count so that we can validate persons >1
+			if($_SESSION["personCount"]>1){
+
+				$paidbyid=$_POST["paidby"];			
+				for ($i=0; $i < $_SESSION["personCount"]; $i++) { 
+					if($paidbyid==$_SESSION["personid"][$i]){
+						$flag=true;
+						break;
+					}
+				}
+				if(!isset($flag)){
+					$paidbyidError="is-invalid";
+		  			$error=1;
 				}
 			}
-			if(!isset($flag)){
-				$paidbyidError="is-invalid";
-	  			$error=1;
-			}
+			else{
+				$paidbyid=$_SESSION["personid"][0];
+			}			
 
 			//creating expense id
 			$expenseId=$planid.date("Y-m-d-h:i:sa").time();
@@ -107,7 +115,9 @@
 				}
 
 				$sql = "INSERT INTO expense(`expense_id`,`title`,`date`,`plan_id`,`amount`,`person_id`,`bill`) VALUES ('$expenseId','$title','$date','$planid','$spent','$paidbyid','$bill')";
-				$conn->query($sql);
+				if(!$conn->query($sql)){
+					echo $conn->error;
+				}
 			}
 		}
 		else{
@@ -141,6 +151,7 @@
 			$from=$_SESSION["from"]=$row["date_from"];
 			$to=$_SESSION["to"]=$row["date_to"];
 			$peoples=$row["peoples"];
+			$todaydate=date("Y-m-d");
 
 			$sql = "SELECT expense.title,expense.date,expense.person_id,expense.amount,expense.bill,persons.person_name from expense,persons WHERE expense.plan_id='$plan' AND expense.person_id=persons.person_id ORDER BY expense.date";
 			$result = $conn->query($sql);
@@ -250,9 +261,11 @@
 							<label>Date</label>
 							<label style="float: right;font-weight: normal;"><?php echo date("d M",strtotime($from));echo date(" - d M Y",strtotime($to)); ?></label>
 						</div>	
+						<?php if($peoples>1){ ?>
 						<div class="form-group" style="margin: auto;width: fit-content;">
 							<a href="expensedistribution.php?plan=<?php echo md5($plan); ?>" class="btn btn-info">Expense Distribution</a>	
-						</div>				
+						</div>
+						<?php }?>				
   					</div>  					
 				</div>
 			</div>
@@ -265,7 +278,7 @@
 						for ($i=0; $i < $expenseCount; $i++) { 
 					?>
 					<div class="col-10 offset-1 col-md-6 offset-md-0 col-lg-6 offset-lg-0 col-xl-4 offset-xl-0" style="margin-bottom: 15px;margin-top: 15px;">
-						<div class="card bg-light border-info font-weight-bold shadow">
+						<div class="card bg-light border-info font-weight-bold shadow expense-box">
 		  					<div class="card-header bg-info text-center text-white" style="overflow: hidden;white-space: nowrap;text-overflow: ellipsis;">
 		  						<?php echo $expensetitle[$i]; ?>
 		  					</div>
@@ -274,10 +287,12 @@
 									<label>Amount</label>
 									<label style="float: right;font-weight: normal;"><i class="fas fa-rupee-sign"></i> <?php echo $expenseamount[$i]; ?>/-</label>
 								</div>
+								<?php if ($peoples>1) { ?>
 								<div class="form-group">
 									<label>Paid By</label>
 									<label style="float: right;font-weight: normal;"><?php echo explode(" ",$expensepaidby[$i])[0]; ?></label>
 								</div>
+								<?php } ?>
 								<div class="form-group">
 									<label>Date</label>
 									<label style="float: right;font-weight: normal;"><?php echo date("d M-Y",strtotime($expensedate[$i]));?></label>
@@ -297,6 +312,7 @@
 				</div>
 			</div>
 
+			<?php if (!($to<$todaydate)) { ?>
 			<!---------ADD EXPENSE FORM--------->
 
 			<div class="col-10 offset-1 col-md-8 offset-md-2 col-lg-4 offset-lg-0" style="margin-bottom: 15px;margin-top: 15px;">
@@ -325,6 +341,7 @@
         							Enter Valid Amount
       							</span>
 							</div>
+							<?php if($peoples>1){ ?>
 							<div class="form-group">
 								<label>Paid By</label>
 								<select class="form-control <?php echo $paidbyidError; ?>" id="paidby" name="paidby" required>
@@ -342,6 +359,7 @@
         							Choose Correct Option
       							</span>
 							</div>
+							<?php } ?>
 							<div class="form-group">
 								<label>Upload Bill</label>
 								<input type="file" accept=".jpg,.png,.jpeg,.pdf" name="bill" id="bill">
@@ -352,6 +370,7 @@
   					</div>
 				</div>
 			</div>	
+			<?php } ?>
 
 
 
@@ -424,11 +443,13 @@
 			var from="<?php echo $from; ?>";
 			var to="<?php echo $to ?>";
 			var error=0;
-			var paidbypersonsid=new Array();
 
-				<?php for ($i=0; $i < $personCount; $i++){ ?>
-				paidbypersonsid.push("<?php echo $personId[$i] ?>");
-				<?php } ?>
+			//checking person count so that we can validate persons >1
+			<?php if ($peoples>1) { ?>
+			var paidbypersonsid=new Array();
+			<?php for ($i=0; $i < $personCount; $i++){ ?>
+			paidbypersonsid.push("<?php echo $personId[$i] ?>");
+			<?php } } ?>
 				
 
 			//loading starts.......		
@@ -449,6 +470,9 @@
 					invalid(date);
 					error=1;
 				}
+
+				//checking person count so that we can validate persons >1
+				<?php if ($peoples>1) { ?>
 				for (var i=0; i<paidbypersonsid.length; i++) {
 					if(paidby.value==paidbypersonsid[i]){
 						var flag=true;
@@ -459,6 +483,8 @@
 					invalid(paidby);
 					error=1;
 				}
+				<?php } ?>
+
 				//if no error then form submit
 				if(error==0){
 					form.submit();
