@@ -63,7 +63,7 @@
 			?>
 
 			<div class="col-10 offset-1 col-md-6 offset-md-0 col-lg-4 offset-lg-0 " style="margin-bottom: 15px;margin-top: 15px;">
-				<div class="card bg-light border-info font-weight-bold shadow plan-box wow animate__animated animate__bounce">
+				<div class="card bg-light border-info font-weight-bold shadow wow animate__animated animate__bounce">
   					<div class="card-header bg-info text-center text-white">
   						<?php echo $row["title"]; ?>
   						<div style="display: inline; position: absolute;right: 0;padding-right: 15px;"><i class="fas fa-user"></i> <?php echo $row["peoples"]; ?></div>
