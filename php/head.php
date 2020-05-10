@@ -1,4 +1,5 @@
 <?php $ver="09-05-2020v1"; ?>
+	<link rel="stylesheet" type="text/css" href="css/animate.min.css">
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css?<?php echo $ver; ?>">
 	<link rel="shortcut icon" type="image/jpg" href="icon/icon.png"/>
