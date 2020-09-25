@@ -32,7 +32,7 @@
 			$plantitle=$row["title"];
 			$initial_budget=$row["initial_budget"];
 			$peoples=$row["peoples"];
-
+			//SELECT persons.person_id,persons.person_name,sum(expense.amount) as amount from persons LEFT JOIN expense on persons.person_id=expense.person_id WHERE persons.plan_id='2020-05-04-06:07:38amsoura.kootty4@gmail.com' GROUP BY persons.person_id; optimized SQL query for below operation
 			$sql = "SELECT person_id,person_name FROM persons WHERE plan_id='$plan'";
 			$result = $conn->query($sql);
 			$i=0;
