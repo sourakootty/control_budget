@@ -35,7 +35,6 @@
 			//Obtaining data from session
 			$email=$_SESSION["email"];
 			$planid=$_SESSION["plan"];
-			$bill="";
 			$from=$_SESSION["from"];
 			$to=$_SESSION["to"];
 
@@ -85,26 +84,7 @@
 			//if no error
 			if($error==0){
 
-				//uploaded file handling
-				$target_dir="bills/";
-				$target_file=$target_dir.basename($_FILES["bill"]["name"]);
-				$uploadOk=1;
-				$imageFileType=strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-				$billname=md5(date("Y-m-d").time().$email);
-
-				// Allow certain file formats
-				if($imageFileType!="jpg" && $imageFileType!="png" && $imageFileType!="jpeg"
-				&& $imageFileType!="pdf"){		   
-				    $uploadOk = 0;
-				}
-
-				if($uploadOk==1){
-				    if(move_uploaded_file($_FILES["bill"]["tmp_name"],$target_dir.$billname.".".$imageFileType)){
-				    	$bill=$billname.'.'.$imageFileType;
-				    }
-				}
-
-				$sql = "INSERT INTO expense(`expense_id`,`title`,`date`,`plan_id`,`amount`,`person_id`,`bill`) VALUES ('$expenseId','$title','$date','$planid','$spent','$paidbyid','$bill')";
+				$sql = "INSERT INTO expense(`expense_id`,`title`,`date`,`plan_id`,`amount`,`person_id`) VALUES ('$expenseId','$title','$date','$planid','$spent','$paidbyid')";
 				if(!$conn->query($sql)){
 					echo $conn->error;
 				}
@@ -138,7 +118,7 @@
 			$peoples=$row["peoples"];
 			$todaydate=date("Y-m-d");
 
-			$sql = "SELECT expense.title,expense.date,expense.person_id,expense.amount,expense.bill,persons.person_name from expense,persons WHERE expense.plan_id='$plan' AND expense.person_id=persons.person_id ORDER BY expense.date";
+			$sql = "SELECT expense.title,expense.date,expense.person_id,expense.amount,persons.person_name from expense,persons WHERE expense.plan_id='$plan' AND expense.person_id=persons.person_id ORDER BY expense.date";
 			$result = $conn->query($sql);
 			$expenseCount=0;
 			while($row = $result->fetch_assoc()){
@@ -147,7 +127,6 @@
 				$expensepaidbyid[$expenseCount]=$row["person_id"];
 				$expensepaidby[$expenseCount]=$row["person_name"];
 				$expensedate[$expenseCount]=$row["date"];
-				$expensebill[$expenseCount]=$row["bill"];
 				$expenseCount++;
 			}
 
@@ -274,13 +253,7 @@
 									<label>Date</label>
 									<label style="float: right;font-weight: normal;"><?php echo date("d M-Y",strtotime($expensedate[$i]));?></label>
 								</div> 
-								<div class="text-center text-primary">
-									<?php if($expensebill[$i]!=""){ ?>
-									<a href="bills/<?php echo $expensebill[$i]; ?>" target="_BLANK">View Bill</a>
-									<?php }else{
-										echo "You Don't Have Bill";
-									} ?>									
-								</div>   					
+													
 		  					</div>		  					
 						</div>
 					</div>
@@ -337,10 +310,6 @@
       							</span>
 							</div>
 							<?php } ?>
-							<div class="form-group">
-								<label>Upload Bill</label>
-								<input type="file" accept=".jpg,.png,.jpeg,.pdf" name="bill" id="bill">
-							</div>
 							<button type="submit" id="submit_button" class="btn btn-info form-control"><i class="fas fa-plus-circle"></i> Add</button>						
     					</form>
   					</div>
