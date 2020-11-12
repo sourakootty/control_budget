@@ -1,8 +1,7 @@
 
 <?php
 	session_start();
-	$_SESSION["webpage"]=htmlspecialchars($_SERVER["PHP_SELF"]);
-	//Checking if user is already logged in
+	
 	if(isset($_SESSION["email"])){
 		//User already logged in redirects to home page
 		header("Location: home.php");
@@ -11,20 +10,14 @@
 ?>
 
 
-<!DOCTYPE html>
 <html>
 <head>
 	<title>Control Budget</title>
 	<?php require "php/head.php"; ?>
-	<meta name="keywords" content="budget control,budget,how to control budget">
-	<meta name="description" content="">
 </head>
-<style type="text/css">
+<style>
 	body{
-		background: url(background/imghome.jpg) no-repeat center center fixed; 
-		-webkit-background-size: cover;
-		-moz-background-size: cover;
-		-o-background-size: cover;
+		background: url(background/imghome.jpg) fixed; 		
 		background-size: cover;
 		background-color: white;	
 	}
@@ -45,13 +38,7 @@
 		</div>
 	</div>
 
-
-
-
 	<?php  require "php/footer.php"; ?>
-
-
-
 
 </body>
 </html>

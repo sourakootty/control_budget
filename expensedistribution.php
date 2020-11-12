@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	$_SESSION["webpage"]=htmlspecialchars($_SERVER["PHP_SELF"].'?'.$_SERVER['QUERY_STRING']);
+	
 	//Checking if user logged in
 	if(!isset($_SESSION["email"])){
 		//User not logged in redirects to login page
@@ -32,19 +32,16 @@
 			$plantitle=$row["title"];
 			$initial_budget=$row["initial_budget"];
 			$peoples=$row["peoples"];
-			//SELECT persons.person_id,persons.person_name,sum(expense.amount) as amount from persons LEFT JOIN expense on persons.person_id=expense.person_id WHERE persons.plan_id='2020-05-04-06:07:38amsoura.kootty4@gmail.com' GROUP BY persons.person_id; optimized SQL query for below operation
-			$sql = "SELECT person_id,person_name FROM persons WHERE plan_id='$plan'";
+			//
+			$sql = "SELECT persons.person_id,persons.person_name,sum(expense.amount) as amount from persons LEFT JOIN expense on persons.person_id=expense.person_id WHERE persons.plan_id='$plan' GROUP BY persons.person_id";
 			$result = $conn->query($sql);
 			$i=0;
 			$totalamountspent=0;
 			while($row = $result->fetch_assoc()){
 				$personId[$i]=$row["person_id"];
 				$person[$i]=$row["person_name"];
-				$sql2="SELECT Sum(amount) as amount FROM expense WHERE plan_id='$plan' AND person_id='$personId[$i]'";
-				$result2 = $conn->query($sql2);
-				$row2 = $result2->fetch_assoc();
-				if ($row2["amount"]!="") {
-					$amount[$i]=$row2["amount"];
+				if ($row["amount"]!="") {
+					$amount[$i]=$row["amount"];
 				}
 				else{
 					$amount[$i]=0;
@@ -90,7 +87,6 @@
 ?>
 
 
-<!DOCTYPE html>
 <html>
 <head>
 	<title>Expense Distribution</title>
@@ -186,13 +182,6 @@
 			</div>
 		</div>
 	</div>
-
-
-
-
-
-
-
 
 
 	<?php  require "php/footer.php"; ?>

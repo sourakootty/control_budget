@@ -2,9 +2,6 @@
 
 	session_start();
 
-	//If Javascript Disabled Purpose
-	$_SESSION["webpage"]=htmlspecialchars($_SERVER["PHP_SELF"]);
-
 	//Checking if user logged in
 	if(!isset($_SESSION["email"])){
 
@@ -17,15 +14,6 @@
 	$oldPassError=$newPassError=$cnewPassError=$matchPassError=$matchPassErrorMsg=$matchOldPassError=$matchOldPassErrorMsg=null;
 
 	if ($_SERVER["REQUEST_METHOD"] == "POST"){
-
-		//prevents form submission from attackers
-		if ($_SERVER["HTTP_HOST"].$_SERVER['SCRIPT_NAME']!=parse_url($_SERVER["HTTP_REFERER"],PHP_URL_HOST).parse_url($_SERVER["HTTP_REFERER"],PHP_URL_PATH)) {
-			header("Location: forbidden.php");
-			die();
-		}
-
-		//Checks csrf tokken
-		if ($_SESSION["csrf_tokken_changepass"]==$_POST["csrf_tokken"]) {
 
 			//flag to check error
 			$error=0;
@@ -96,26 +84,13 @@
 				}	
 
 			}			
-		}
-
-		//if csrf tokken not matched
-		else{
-			header("Location: forbidden.php");
-			die();
-		}
 
 	}
-
-	//csrf tokken security for form injection
-	$_SESSION["csrf_tokken_changepass"]=sha1(date("Y-m-d").time().rand(1000000000,9999999999).rand(1000000000,9999999999));
-	
-
 
 ?>
 
 
 
-<!DOCTYPE html>
 <html>
 <head>
 	<title>Login</title>
@@ -156,7 +131,6 @@
 									<?php if(isset($matchPassErrorMsg)){echo $matchPassErrorMsg;}  else{echo "Must be between 6-20";} ?>  		
       							</span>
 							</div>
-							<input type="hidden" name="csrf_tokken" value="<?php echo $_SESSION["csrf_tokken_changepass"]; ?>">
 							<button type="submit" id="submit_button" class="btn btn-info form-control"><i class="fas fa-save"></i> Save</button>
 						</form>  
 						<?php 
@@ -180,7 +154,7 @@
 
 	<!-------JAVASCRIPT FOR IDs--------> 
 
-	<script type="text/javascript">
+	<script>
 		var button=document.getElementById("submit_button");
 		var form=document.getElementById("changepass_form");
 		var oldpass=document.getElementById("oldpass");
@@ -190,7 +164,7 @@
 
 	<!-------JAVASCRIPT FOR UI INDICATING--------> 
 
-	<script type="text/javascript">
+	<script>
 		function valid(field){
 			field.classList.add("is-valid");
 			field.classList.remove("is-invalid");
@@ -241,7 +215,7 @@
 
 	<!-------JAVASCRIPT FOR LOGIN FORM------->
 
-	<script type="text/javascript">
+	<script>
 		function myChangepass() {
 			var error=0;			
 			//starts loading.....
@@ -278,15 +252,6 @@
 			return false;
 		}		
 	</script>
-
-	<!-------JAVASCRIPT TO RESOLVE RE-SUBMISSION OF FORM--------> 
-
-	<script type="text/javascript">
-		if ( window.history.replaceState ) {
-        		window.history.replaceState( null, null, window.location.href );
-   		}	
-	</script>
-
-
+	
 </body>
 </html>

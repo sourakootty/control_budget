@@ -1,9 +1,6 @@
 <?php
 	session_start();
 
-	//If Javascript Disabled Purpose
-	$_SESSION["webpage"]=htmlspecialchars($_SERVER["PHP_SELF"].'?'.$_SERVER['QUERY_STRING']);
-
 	//Checking if user logged in
 	if(!isset($_SESSION["email"])){
 
@@ -21,18 +18,11 @@
 
 	if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
-		//prevents form submission from attackers
-		if ($_SERVER["HTTP_HOST"].$_SERVER['SCRIPT_NAME'].'?'.$_SERVER['QUERY_STRING']!=parse_url($_SERVER["HTTP_REFERER"],PHP_URL_HOST).parse_url($_SERVER["HTTP_REFERER"],PHP_URL_PATH).'?'.parse_url($_SERVER["HTTP_REFERER"],PHP_URL_QUERY)) {
-			header("Location: forbidden.php");
-			die();
-		}
 
 		if(!isset($_SESSION["plan"])){
 			header("Location: home.php");
 			die();
 		}
-
-		if($_SESSION["csrf_tokken_expense"]==$_POST["csrf_tokken"]){
 
 			//flag to check error
 			$error=0;
@@ -45,7 +35,6 @@
 			//Obtaining data from session
 			$email=$_SESSION["email"];
 			$planid=$_SESSION["plan"];
-			$bill="";
 			$from=$_SESSION["from"];
 			$to=$_SESSION["to"];
 
@@ -95,35 +84,11 @@
 			//if no error
 			if($error==0){
 
-				//uploaded file handling
-				$target_dir="bills/";
-				$target_file=$target_dir.basename($_FILES["bill"]["name"]);
-				$uploadOk=1;
-				$imageFileType=strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-				$billname=md5(date("Y-m-d").time().$email);
-
-				// Allow certain file formats
-				if($imageFileType!="jpg" && $imageFileType!="png" && $imageFileType!="jpeg"
-				&& $imageFileType!="pdf"){		   
-				    $uploadOk = 0;
-				}
-
-				if($uploadOk==1){
-				    if(move_uploaded_file($_FILES["bill"]["tmp_name"],$target_dir.$billname.".".$imageFileType)){
-				    	$bill=$billname.'.'.$imageFileType;
-				    }
-				}
-
-				$sql = "INSERT INTO expense(`expense_id`,`title`,`date`,`plan_id`,`amount`,`person_id`,`bill`) VALUES ('$expenseId','$title','$date','$planid','$spent','$paidbyid','$bill')";
+				$sql = "INSERT INTO expense(`expense_id`,`title`,`date`,`plan_id`,`amount`,`person_id`) VALUES ('$expenseId','$title','$date','$planid','$spent','$paidbyid')";
 				if(!$conn->query($sql)){
 					echo $conn->error;
 				}
-			}
-		}
-		else{
-			header("Location: forbidden.php");
-			die();
-		}			
+			}		
 
 	}
 
@@ -153,7 +118,7 @@
 			$peoples=$row["peoples"];
 			$todaydate=date("Y-m-d");
 
-			$sql = "SELECT expense.title,expense.date,expense.person_id,expense.amount,expense.bill,persons.person_name from expense,persons WHERE expense.plan_id='$plan' AND expense.person_id=persons.person_id ORDER BY expense.date";
+			$sql = "SELECT expense.title,expense.date,expense.person_id,expense.amount,persons.person_name from expense,persons WHERE expense.plan_id='$plan' AND expense.person_id=persons.person_id ORDER BY expense.date";
 			$result = $conn->query($sql);
 			$expenseCount=0;
 			while($row = $result->fetch_assoc()){
@@ -162,7 +127,6 @@
 				$expensepaidbyid[$expenseCount]=$row["person_id"];
 				$expensepaidby[$expenseCount]=$row["person_name"];
 				$expensedate[$expenseCount]=$row["date"];
-				$expensebill[$expenseCount]=$row["bill"];
 				$expenseCount++;
 			}
 
@@ -198,9 +162,6 @@
 			}
 			$_SESSION["personCount"]=$personCount;
 
-			//csrf tokken security for form injection or form resubmission
-			$_SESSION["csrf_tokken_expense"]=sha1($email.$plan.date("Y-m-d").time().rand(1000000000,9999999999));
-
 		}
 		else{
 			header("Location: home.php");
@@ -213,8 +174,6 @@
 		die();
 	}
 	
-		
-	
 
 	//connection to db close		
 	$conn->close(); 
@@ -223,9 +182,6 @@
 ?>
 
 
-
-
-<!DOCTYPE html>
 <html>
 <head>
 	<title>View Plan</title>
@@ -297,13 +253,7 @@
 									<label>Date</label>
 									<label style="float: right;font-weight: normal;"><?php echo date("d M-Y",strtotime($expensedate[$i]));?></label>
 								</div> 
-								<div class="text-center text-primary">
-									<?php if($expensebill[$i]!=""){ ?>
-									<a href="bills/<?php echo $expensebill[$i]; ?>" target="_BLANK">View Bill</a>
-									<?php }else{
-										echo "You Don't Have Bill";
-									} ?>									
-								</div>   					
+													
 		  					</div>		  					
 						</div>
 					</div>
@@ -319,7 +269,7 @@
 				<div class="card bg-light border-info font-weight-bold shadow">
   					<div class="card-header bg-info text-center text-white">Add New Expense</div>
   					<div class="card-body">
-  						<form method="post" id="addexpense_form" autocomplete="off" onsubmit="return myNewExpense()" enctype="multipart/form-data">
+  						<form method="post" id="addexpense_form" autocomplete="off" onsubmit="return myNewExpense()">
 	  						<div class="form-group">
 								<label>Title</label>
 								<input type="text" class="form-control <?php echo $titleError; ?>" name="title" id="title" placeholder="Title (Ex. Food)" pattern="^[A-Za-z0-9]+(\s[A-Za-z0-9]+)*$" onkeyup="checktitle()" required>
@@ -360,11 +310,6 @@
       							</span>
 							</div>
 							<?php } ?>
-							<div class="form-group">
-								<label>Upload Bill</label>
-								<input type="file" accept=".jpg,.png,.jpeg,.pdf" name="bill" id="bill">
-							</div>
-							<input type="hidden" name="csrf_tokken" value="<?php echo $_SESSION["csrf_tokken_expense"]; ?>">
 							<button type="submit" id="submit_button" class="btn btn-info form-control"><i class="fas fa-plus-circle"></i> Add</button>						
     					</form>
   					</div>
@@ -378,16 +323,12 @@
 	</div>
 
 
-
-
 	<?php  require "php/footer.php"; ?>
-
-
 
 
 	<!-------JAVASCRIPT FOR IDs--------> 
 
-	<script type="text/javascript">
+	<script>
 		var button=document.getElementById("submit_button");
 		var form=document.getElementById("addexpense_form");
 		var title=document.getElementById("title");
@@ -398,7 +339,7 @@
 
 	<!-------JAVASCRIPT FOR UI INDICATING--------> 
 
-	<script type="text/javascript">
+	<script>
 		function valid(field){
 			field.classList.add("is-valid");
 			field.classList.remove("is-invalid");
@@ -438,7 +379,7 @@
 
 	<!-------JAVASCRIPT FOR SIGNUP FORM------->
 
-	<script type="text/javascript">
+	<script>
 		function myNewExpense() {	
 			var from="<?php echo $from; ?>";
 			var to="<?php echo $to ?>";
@@ -493,16 +434,6 @@
 			return false;
 		}		
 	</script>
-
-	<!-------JAVASCRIPT TO RESOLVE RE-SUBMISSION OF FORM--------> 
-
-	<script type="text/javascript">
-		if ( window.history.replaceState ) {
-        		window.history.replaceState( null, null, window.location.href );
-   		}	
-	</script>
-
-
 
 </body>
 </html>

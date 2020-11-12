@@ -1,4 +1,4 @@
-<script type="text/javascript">
+<script>
 	function myMenu(){
 		if (document.getElementById("nav-menu").style.width=="0px") {
 			document.getElementById("nav-menu").style.width="60%";

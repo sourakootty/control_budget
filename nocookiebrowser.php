@@ -1,19 +1,9 @@
-<?php 
-	session_start();
-?>
-<!DOCTYPE html>
 <html style="height:100%">
 <head>
 	<title>403 Forbidden</title>
 	<link rel="stylesheet" href="fontawesome/css/all.min.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" >
-	<?php
-	setcookie("test","test",time()+3600,"/");
-	if(count($_COOKIE) > 0) { ?>
-	   <meta http-equiv="refresh" content="0; URL=<?php echo $_SESSION["webpage"]; ?>">
-	 <?php
-	} 
-	?>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
 </head>
 <body style="color: #444; margin:0;font: normal 14px/20px Arial, Helvetica, sans-serif; height:100%; background-color: #fff;">
 	<div style="height:auto; min-height:100%; ">     

@@ -2,9 +2,6 @@
 
 	session_start();
 
-	//If Javascript Disabled Purpose
-	$_SESSION["webpage"]=htmlspecialchars($_SERVER["PHP_SELF"]);
-
 	//Checking if user is already logged in
 	if(isset($_SESSION["email"])){
 
@@ -17,15 +14,6 @@
 	$status=$emailError=$passError=null;
 
 	if ($_SERVER["REQUEST_METHOD"] == "POST"){
-
-		//prevents form submission from attackers
-		if ($_SERVER["HTTP_HOST"].$_SERVER['SCRIPT_NAME']!=parse_url($_SERVER["HTTP_REFERER"],PHP_URL_HOST).parse_url($_SERVER["HTTP_REFERER"],PHP_URL_PATH)) {
-			header("Location: forbidden.php");
-			die();
-		}
-
-		//Checks csrf tokken
-		if ($_SESSION["csrf_tokken_login"]==$_POST["csrf_tokken"]) {
 
 			//flag to check error
 			$error=0;
@@ -84,37 +72,19 @@
 				//connection to db close
 				$conn->close();
 			}			
-		}
-
-		//if csrf tokken not matched
-		else{
-			header("Location: forbidden.php");
-			die();
-		}
 
 	}
 
-	//csrf tokken security for form injection
-	$_SESSION["csrf_tokken_login"]=sha1(date("Y-m-d").time().rand(1000000000,9999999999).rand(1000000000,9999999999));
-	
-
-
 ?>
 
-
-
-<!DOCTYPE html>
 <html>
 <head>
 	<title>Login</title>
 	<?php require "php/head.php"; ?>
 </head>
-<style type="text/css">
+<style>
 	body{
-		background: url(background/imghome.jpg) no-repeat center center fixed; 
-		-webkit-background-size: cover;
-		-moz-background-size: cover;
-		-o-background-size: cover;
+		background: url(background/imghome.jpg) fixed; 
 		background-size: cover;
 		background-color: white;	
 	}
@@ -147,7 +117,6 @@
         							Must be between 6-20
       							</span>
 							</div>
-							<input type="hidden" name="csrf_tokken" value="<?php echo $_SESSION["csrf_tokken_login"]; ?>">
 							<button type="submit" id="submit_button" class="btn btn-info form-control"><i class="fas fa-sign-in-alt"></i> Login</button>
 						</form>    					
   					</div>
@@ -165,19 +134,13 @@
 		</div>		
 	</div>
 
-
-
-
-
-
-
 	<?php  require "php/footer.php"; ?>
 
 
 
 	<!-------JAVASCRIPT FOR IDs--------> 
 
-	<script type="text/javascript">
+	<script>
 		var button=document.getElementById("submit_button");
 		var form=document.getElementById("login_form");
 		var email=document.getElementById("email");
@@ -186,7 +149,7 @@
 
 	<!-------JAVASCRIPT FOR UI INDICATING--------> 
 
-	<script type="text/javascript">
+	<script>
 		function valid(field){
 			field.classList.add("is-valid");
 			field.classList.remove("is-invalid");
@@ -226,7 +189,7 @@
 
 	<!-------JAVASCRIPT FOR LOGIN FORM------->
 
-	<script type="text/javascript">
+	<script>
 		function myLogin() {
 			var error=0;			
 			//starts loading.....
@@ -251,15 +214,6 @@
 			return false;
 		}		
 	</script>
-
-	<!-------JAVASCRIPT TO RESOLVE RE-SUBMISSION OF FORM--------> 
-
-	<script type="text/javascript">
-		if ( window.history.replaceState ) {
-        		window.history.replaceState( null, null, window.location.href );
-   		}	
-	</script>
-
 
 </body>
 </html>
