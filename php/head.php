@@ -1,4 +1,4 @@
-<?php $ver="09-05-2020v1"; ?>
+<?php $ver="10-05-2020v1"; ?>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="css/style.css?<?php echo $ver; ?>">
 	<link rel="shortcut icon" type="image/jpg" href="icon/icon.png"/>
@@ -10,8 +10,10 @@
 	setcookie("test","test",time()+3600,"/");
 	if(count($_COOKIE) > 0) {
 	   
-	} else { ?>
-	    <meta http-equiv="refresh" content="0; URL=./nocookiebrowser.php">
-	<?php }
+	} 
+	else { 
+		header("Location: ../nocookiebrowser.php");
+		die();
+	}
 
 ?>

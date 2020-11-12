@@ -1,6 +1,6 @@
 <?php
 	session_start();
-	$_SESSION["webpage"]=htmlspecialchars($_SERVER["PHP_SELF"].'?'.$_SERVER['QUERY_STRING']);
+	
 	//Checking if user logged in
 	if(!isset($_SESSION["email"])){
 		//User not logged in redirects to login page
@@ -186,13 +186,6 @@
 			</div>
 		</div>
 	</div>
-
-
-
-
-
-
-
 
 
 	<?php  require "php/footer.php"; ?>

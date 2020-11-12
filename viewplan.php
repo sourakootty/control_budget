@@ -1,9 +1,6 @@
 <?php
 	session_start();
 
-	//If Javascript Disabled Purpose
-	$_SESSION["webpage"]=htmlspecialchars($_SERVER["PHP_SELF"].'?'.$_SERVER['QUERY_STRING']);
-
 	//Checking if user logged in
 	if(!isset($_SESSION["email"])){
 
@@ -21,18 +18,11 @@
 
 	if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
-		//prevents form submission from attackers
-		if ($_SERVER["HTTP_HOST"].$_SERVER['SCRIPT_NAME'].'?'.$_SERVER['QUERY_STRING']!=parse_url($_SERVER["HTTP_REFERER"],PHP_URL_HOST).parse_url($_SERVER["HTTP_REFERER"],PHP_URL_PATH).'?'.parse_url($_SERVER["HTTP_REFERER"],PHP_URL_QUERY)) {
-			header("Location: forbidden.php");
-			die();
-		}
 
 		if(!isset($_SESSION["plan"])){
 			header("Location: home.php");
 			die();
 		}
-
-		if($_SESSION["csrf_tokken_expense"]==$_POST["csrf_tokken"]){
 
 			//flag to check error
 			$error=0;
@@ -118,12 +108,7 @@
 				if(!$conn->query($sql)){
 					echo $conn->error;
 				}
-			}
-		}
-		else{
-			header("Location: forbidden.php");
-			die();
-		}			
+			}		
 
 	}
 
@@ -198,9 +183,6 @@
 			}
 			$_SESSION["personCount"]=$personCount;
 
-			//csrf tokken security for form injection or form resubmission
-			$_SESSION["csrf_tokken_expense"]=sha1($email.$plan.date("Y-m-d").time().rand(1000000000,9999999999));
-
 		}
 		else{
 			header("Location: home.php");
@@ -213,16 +195,12 @@
 		die();
 	}
 	
-		
-	
 
 	//connection to db close		
 	$conn->close(); 
 
 
 ?>
-
-
 
 
 <!DOCTYPE html>
@@ -364,7 +342,6 @@
 								<label>Upload Bill</label>
 								<input type="file" accept=".jpg,.png,.jpeg,.pdf" name="bill" id="bill">
 							</div>
-							<input type="hidden" name="csrf_tokken" value="<?php echo $_SESSION["csrf_tokken_expense"]; ?>">
 							<button type="submit" id="submit_button" class="btn btn-info form-control"><i class="fas fa-plus-circle"></i> Add</button>						
     					</form>
   					</div>
@@ -493,16 +470,6 @@
 			return false;
 		}		
 	</script>
-
-	<!-------JAVASCRIPT TO RESOLVE RE-SUBMISSION OF FORM--------> 
-
-	<script type="text/javascript">
-		if ( window.history.replaceState ) {
-        		window.history.replaceState( null, null, window.location.href );
-   		}	
-	</script>
-
-
 
 </body>
 </html>

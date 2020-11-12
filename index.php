@@ -1,8 +1,7 @@
 
 <?php
 	session_start();
-	$_SESSION["webpage"]=htmlspecialchars($_SERVER["PHP_SELF"]);
-	//Checking if user is already logged in
+	
 	if(isset($_SESSION["email"])){
 		//User already logged in redirects to home page
 		header("Location: home.php");
@@ -45,13 +44,7 @@
 		</div>
 	</div>
 
-
-
-
 	<?php  require "php/footer.php"; ?>
-
-
-
 
 </body>
 </html>

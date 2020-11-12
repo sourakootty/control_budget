@@ -1,9 +1,6 @@
 <?php 
 	session_start();
 
-	//If Javascript Disabled Purpose
-	$_SESSION["webpage"]=htmlspecialchars($_SERVER["PHP_SELF"]);
-
 	//Checking if user is already logged in
 	if(isset($_SESSION["email"])){
 
@@ -16,15 +13,6 @@
 	$status=$fnameError=$lnameError=$phoneError=$emailError=$passError=null;
 
 	if ($_SERVER["REQUEST_METHOD"] == "POST"){
-
-		//prevents form submission from attackers
-		if ($_SERVER["HTTP_HOST"].$_SERVER['SCRIPT_NAME']!=parse_url($_SERVER["HTTP_REFERER"],PHP_URL_HOST).parse_url($_SERVER["HTTP_REFERER"],PHP_URL_PATH)) {
-			header("Location: forbidden.php");
-			die();
-		}
-
-		//Checks csrf tokken
-		if ($_SESSION["csrf_tokken_signup"]==$_POST["csrf_tokken"]){
 
 			//flag to check error
 			$error=0;
@@ -100,23 +88,11 @@
 				//connection to db close
 				$conn->close();				
 			}
-		}
-		else{
-			header("Location: forbidden.php");
-			die();
-		}
 		
 	}
 
-	//csrf tokken security for form injection
-	$_SESSION["csrf_tokken_signup"]=sha1(date("Y-m-d").time().rand(1000000000,9999999999).rand(1000000000,9999999999));
 
 ?>
-
-
-
-
-
 
 <!DOCTYPE html>
 <html>
@@ -183,7 +159,6 @@
         							Must be between 6-20
       							</span>
 							</div>
-							<input type="hidden" name="csrf_tokken" value="<?php echo $_SESSION["csrf_tokken_signup"]; ?>">
 							<button type="submit" id="submit_button" class="btn btn-info form-control"><i class="fas fa-database"></i> Sign Up</button>						
     					</form>
   					</div>
@@ -201,10 +176,7 @@
 	</div>
 
 
-
-
 	<?php  require "php/footer.php"; ?>
-
 
 
 	<!-------JAVASCRIPT FOR IDs--------> 
@@ -333,16 +305,6 @@
 			return false;
 		}		
 	</script>
-
-	<!-------JAVASCRIPT TO RESOLVE RE-SUBMISSION OF FORM--------> 
-
-	<script type="text/javascript">
-		if ( window.history.replaceState ) {
-        		window.history.replaceState( null, null, window.location.href );
-   		}	
-	</script>
-
-
 
 
 </body>
