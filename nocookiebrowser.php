@@ -1,7 +1,3 @@
-<?php 
-	session_start();
-?>
-<!DOCTYPE html>
 <html style="height:100%">
 <head>
 	<title>403 Forbidden</title>

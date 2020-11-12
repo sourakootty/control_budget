@@ -77,15 +77,12 @@
 
 ?>
 
-
-
-<!DOCTYPE html>
 <html>
 <head>
 	<title>Login</title>
 	<?php require "php/head.php"; ?>
 </head>
-<style type="text/css">
+<style>
 	body{
 		background: url(background/imghome.jpg) no-repeat center center fixed; 
 		-webkit-background-size: cover;
@@ -140,19 +137,13 @@
 		</div>		
 	</div>
 
-
-
-
-
-
-
 	<?php  require "php/footer.php"; ?>
 
 
 
 	<!-------JAVASCRIPT FOR IDs--------> 
 
-	<script type="text/javascript">
+	<script>
 		var button=document.getElementById("submit_button");
 		var form=document.getElementById("login_form");
 		var email=document.getElementById("email");
@@ -161,7 +152,7 @@
 
 	<!-------JAVASCRIPT FOR UI INDICATING--------> 
 
-	<script type="text/javascript">
+	<script>
 		function valid(field){
 			field.classList.add("is-valid");
 			field.classList.remove("is-invalid");
@@ -201,7 +192,7 @@
 
 	<!-------JAVASCRIPT FOR LOGIN FORM------->
 
-	<script type="text/javascript">
+	<script>
 		function myLogin() {
 			var error=0;			
 			//starts loading.....
@@ -226,15 +217,6 @@
 			return false;
 		}		
 	</script>
-
-	<!-------JAVASCRIPT TO RESOLVE RE-SUBMISSION OF FORM--------> 
-
-	<script type="text/javascript">
-		if ( window.history.replaceState ) {
-        		window.history.replaceState( null, null, window.location.href );
-   		}	
-	</script>
-
 
 </body>
 </html>

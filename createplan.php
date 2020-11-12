@@ -50,7 +50,6 @@
 		
 ?>
 
-<!DOCTYPE html>
 <html>
 <head>
 	<title>Create Plan</title>
@@ -91,18 +90,11 @@
 		</div>		
 	</div>
 
-
-
-
-
-
 	<?php  require "php/footer.php"; ?>
-
-
 
 	<!-------JAVASCRIPT FOR IDs--------> 
 
-	<script type="text/javascript">
+	<script>
 		var button=document.getElementById("submit_button");
 		var form=document.getElementById("createplan_form");
 		var initialbudget=document.getElementById("initialbudget");
@@ -111,7 +103,7 @@
 
 	<!-------JAVASCRIPT FOR UI INDICATING--------> 
 
-	<script type="text/javascript">
+	<script>
 		function valid(field){
 			field.classList.add("is-valid");
 			field.classList.remove("is-invalid");
@@ -151,7 +143,7 @@
 
 	<!-------JAVASCRIPT FOR CEATE PLAN FORM------->
 
-	<script type="text/javascript">
+	<script>
 		function myCreatePlan() {
 		var error=0;			
 			//starts loading.....

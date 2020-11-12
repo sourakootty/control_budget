@@ -203,7 +203,6 @@
 ?>
 
 
-<!DOCTYPE html>
 <html>
 <head>
 	<title>View Plan</title>
@@ -355,16 +354,12 @@
 	</div>
 
 
-
-
 	<?php  require "php/footer.php"; ?>
-
-
 
 
 	<!-------JAVASCRIPT FOR IDs--------> 
 
-	<script type="text/javascript">
+	<script>
 		var button=document.getElementById("submit_button");
 		var form=document.getElementById("addexpense_form");
 		var title=document.getElementById("title");
@@ -375,7 +370,7 @@
 
 	<!-------JAVASCRIPT FOR UI INDICATING--------> 
 
-	<script type="text/javascript">
+	<script>
 		function valid(field){
 			field.classList.add("is-valid");
 			field.classList.remove("is-invalid");
@@ -415,7 +410,7 @@
 
 	<!-------JAVASCRIPT FOR SIGNUP FORM------->
 
-	<script type="text/javascript">
+	<script>
 		function myNewExpense() {	
 			var from="<?php echo $from; ?>";
 			var to="<?php echo $to ?>";

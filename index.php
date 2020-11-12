@@ -10,15 +10,12 @@
 ?>
 
 
-<!DOCTYPE html>
 <html>
 <head>
 	<title>Control Budget</title>
 	<?php require "php/head.php"; ?>
-	<meta name="keywords" content="budget control,budget,how to control budget">
-	<meta name="description" content="">
 </head>
-<style type="text/css">
+<style>
 	body{
 		background: url(background/imghome.jpg) no-repeat center center fixed; 
 		-webkit-background-size: cover;

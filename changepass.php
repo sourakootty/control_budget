@@ -91,7 +91,6 @@
 
 
 
-<!DOCTYPE html>
 <html>
 <head>
 	<title>Login</title>
@@ -155,7 +154,7 @@
 
 	<!-------JAVASCRIPT FOR IDs--------> 
 
-	<script type="text/javascript">
+	<script>
 		var button=document.getElementById("submit_button");
 		var form=document.getElementById("changepass_form");
 		var oldpass=document.getElementById("oldpass");
@@ -165,7 +164,7 @@
 
 	<!-------JAVASCRIPT FOR UI INDICATING--------> 
 
-	<script type="text/javascript">
+	<script>
 		function valid(field){
 			field.classList.add("is-valid");
 			field.classList.remove("is-invalid");
@@ -216,7 +215,7 @@
 
 	<!-------JAVASCRIPT FOR LOGIN FORM------->
 
-	<script type="text/javascript">
+	<script>
 		function myChangepass() {
 			var error=0;			
 			//starts loading.....

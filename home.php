@@ -26,7 +26,6 @@
 ?>
 
 
-<!DOCTYPE html>
 <html>
 <head>
 	<title>HOME</title>
@@ -99,9 +98,6 @@
 						
 		</div>		
 	</div>
-
-
-
 
 
 	<?php  require "php/footer.php"; ?>

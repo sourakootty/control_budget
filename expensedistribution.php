@@ -90,7 +90,6 @@
 ?>
 
 
-<!DOCTYPE html>
 <html>
 <head>
 	<title>Expense Distribution</title>

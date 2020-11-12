@@ -95,7 +95,6 @@
 ?>
 
 
-<!DOCTYPE html>
 <html>
 <head>
 	<title>Set Plan Details</title>
@@ -188,18 +187,17 @@
 
 	<!-------JAVASCRIPT FOR IDs--------> 
 
-	<script type="text/javascript">
+	<script>
 		var button=document.getElementById("submit_button");
 		var form=document.getElementById("plandetails_form");
 		var title=document.getElementById("title");
 		var from=document.getElementById("from");
 		var to=document.getElementById("to");
-		button.setAttribute("display","visible");
 	</script>
 
 	<!-------JAVASCRIPT FOR UI INDICATING--------> 
 
-	<script type="text/javascript">
+	<script>
 		function valid(field){
 			field.classList.add("is-valid");
 			field.classList.remove("is-invalid");
@@ -239,7 +237,7 @@
 
 	<!-------JAVASCRIPT FOR PLAN DETAILS FORM------->
 
-	<script type="text/javascript">
+	<script>
 		function myPlanDetails() {	
 			var error=0;	
 			var today="<?php echo date("Y-m-d"); ?>";	

@@ -94,13 +94,12 @@
 
 ?>
 
-<!DOCTYPE html>
 <html>
 <head>
 	<title>Signup</title>
 	<?php require "php/head.php"; ?>
 </head>
-<style type="text/css">
+<style>
 	body{
 		background: url(background/imghome.jpg) no-repeat center center fixed; 
 		-webkit-background-size: cover;
@@ -181,7 +180,7 @@
 
 	<!-------JAVASCRIPT FOR IDs--------> 
 
-	<script type="text/javascript">
+	<script>
 		var button=document.getElementById("submit_button");
 		var form=document.getElementById("signup_form");
 		var fname=document.getElementById("fname");
@@ -193,7 +192,7 @@
 
 	<!-------JAVASCRIPT FOR UI INDICATING--------> 
 
-	<script type="text/javascript">
+	<script>
 		function valid(field){
 			field.classList.add("is-valid");
 			field.classList.remove("is-invalid");
@@ -266,7 +265,7 @@
 
 	<!-------JAVASCRIPT FOR SIGNUP FORM------->
 
-	<script type="text/javascript">
+	<script>
 		function mySignup() {	
 			var error=0;
 			//loading starts.......		
