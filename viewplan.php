@@ -269,7 +269,7 @@
 				<div class="card bg-light border-info font-weight-bold shadow">
   					<div class="card-header bg-info text-center text-white">Add New Expense</div>
   					<div class="card-body">
-  						<form method="post" id="addexpense_form" autocomplete="off" onsubmit="return myNewExpense()" enctype="multipart/form-data">
+  						<form method="post" id="addexpense_form" autocomplete="off" onsubmit="return myNewExpense()">
 	  						<div class="form-group">
 								<label>Title</label>
 								<input type="text" class="form-control <?php echo $titleError; ?>" name="title" id="title" placeholder="Title (Ex. Food)" pattern="^[A-Za-z0-9]+(\s[A-Za-z0-9]+)*$" onkeyup="checktitle()" required>
