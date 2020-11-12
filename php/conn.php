@@ -5,7 +5,7 @@
 	$password="";
 	$dbname="control_budget";
 
-	$conn = new mysqli($serve, $username, $password, $dbname);
+	$conn = new mysqli($server, $username, $password, $dbname);
 	if ($conn->connect_error) {
 	    die();
 	}
