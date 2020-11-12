@@ -65,10 +65,7 @@
 }
 
 body{
-		background: url(../background/imglogged.jpg) no-repeat center center fixed; 
-		-webkit-background-size: cover;
-		-moz-background-size: cover;
-		-o-background-size: cover;
+		background: url(../background/imglogged.jpg) fixed; 
 		background-size: cover;
 		background-color: white;	
 	}
