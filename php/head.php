@@ -6,14 +6,3 @@
 	<script src="js/jquery.min.js"></script>
 	<script src="js/bootstrap.bundle.min.js"></script>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<?php
-	setcookie("test","test",time()+3600,"/");
-	if(count($_COOKIE) > 0) {
-	   
-	} 
-	else { 
-		header("Location: ../nocookiebrowser.php");
-		die();
-	}
-
-?>
